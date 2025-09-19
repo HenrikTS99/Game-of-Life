@@ -8,6 +8,8 @@ public class Main {
 
         MyPanel myPanel = new MyPanel();
         MyFrame myFrame = new MyFrame(myPanel);
+        Board board = new Board();
+        board.printBoard();
 
     }
 }
