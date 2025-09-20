@@ -1,28 +1,30 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class Board {
 
-    private boolean [][] grid = new boolean[10][10];
+    private boolean [][] grid = new boolean[50][50];
     private final int boardHeight = grid.length;
     private final int boardLength = grid[0].length;
 
     public Board() {
         resetBoard();
-        grid[5][5] = true;
-        grid[5][6] = true;
-        grid[6][5] = true;
-        grid[6][6] = true;
-        grid[6][7] = true;
-        grid[5][7] = true;
-        grid[5][8] = true;
-
-        System.out.println(getNeighbours(6, 6));
+        randomizeBoard();
     }
 
     private void resetBoard() {
        for (boolean[] row : grid) {
            Arrays.fill(row, false);
        }
+    }
+
+    public void randomizeBoard() {
+        for (int row = 0; row <= boardLength -1; row++) {
+            for (int col = 0; col <= boardHeight - 1; col++) {
+                Random random = new Random();
+                grid[row][col] = random.nextBoolean();
+            }
+        }
     }
 
     public void updateBoard() {
@@ -53,6 +55,11 @@ public class Board {
         }
         return newArray;
     }
+
+    public boolean[][] getGrid() { return this.grid; }
+
+    public int getBoardHeight() { return this.boardHeight; }
+    public int getBoardLength() { return this.boardLength; }
 
     // Returns number of all alive neighbours of specified cell
     public int getNeighbours(int selectedRow, int selectedCol) {
