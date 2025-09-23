@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Board {
 
-    private boolean [][] grid = new boolean[50][50];
+    private boolean [][] grid = new boolean[100][200];
     private final int boardHeight = grid.length;
     private final int boardLength = grid[0].length;
 
@@ -19,8 +19,8 @@ public class Board {
     }
 
     public void randomizeBoard() {
-        for (int row = 0; row <= boardLength -1; row++) {
-            for (int col = 0; col <= boardHeight - 1; col++) {
+        for (int row = 0; row < boardHeight; row++) {
+            for (int col = 0; col < boardLength; col++) {
                 Random random = new Random();
                 grid[row][col] = random.nextBoolean();
             }
@@ -31,8 +31,8 @@ public class Board {
         int currNeighbours = 0;
         boolean[][] newGrid = clone2DBoolArray(grid);
 
-        for (int row = 0; row <= boardLength -1; row++) {
-            for (int col = 0; col <= boardHeight - 1; col++) {
+        for (int row = 0; row < boardHeight; row++) {
+            for (int col = 0; col < boardLength; col++) {
                 currNeighbours = getNeighbours(row, col);
                 // If cell is alive with 2-3 neighbours, it lives on (no need to code this)
                 // If cell is alive and has fewer than two neighbours or more than 3 neighbours, it dies
