@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Board {
 
-    private boolean [][] grid = new boolean[100][200];
+    private boolean [][] grid = new boolean[500][1000];
     private final int boardHeight = grid.length;
     private final int boardLength = grid[0].length;
 

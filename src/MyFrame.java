@@ -10,11 +10,10 @@ public class MyFrame {
         this.frame.setTitle("Game of Life");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setResizable(false);
-        this.frame.setLocationRelativeTo(null); // Center
-        this.frame.getContentPane().setBackground(Color.black);
 
         this.frame.add(panel);
         this.frame.pack(); // Adjust frame size to fit panel
+        this.frame.setLocationRelativeTo(null); // Center
         this.frame.setVisible(true);
     }
 }
