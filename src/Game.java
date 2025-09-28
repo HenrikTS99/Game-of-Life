@@ -24,7 +24,13 @@ public class Game {
         timer.start();
     }
 
+    public void setDelay(int newDelay) {
+        this.delay = newDelay;
+        timer.setDelay(newDelay);
+    }
+
     public void pause() { timer.stop(); }
     public void resume() { timer.start(); }
     public boolean isRunning() { return timer.isRunning(); }
+    public int getDelay() { return delay; }
 }
