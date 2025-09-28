@@ -34,7 +34,7 @@ public class Board {
     }
 
     public void updateBoard() {
-        int currNeighbours = 0;
+        int currNeighbours;
         boolean[][] newGrid = clone2DBoolArray(grid);
 
         for (int row = 0; row < boardHeight; row++) {

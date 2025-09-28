@@ -42,7 +42,7 @@ public class TopPanel extends JPanel implements ActionListener {
         int sliderStartValue = (int) Math.round(normalizedStartValue * 100);
         JSlider delaySlider = new JSlider(1, 100, sliderStartValue);
 
-        delaySlider.addChangeListener(e -> {
+        delaySlider.addChangeListener(_ -> {
             int sliderValue = delaySlider.getValue();
             double normalizedSliderValue = (double) sliderValue / 100.00; // normalize to 0-1
             int logValue = (int) Math.exp(minLog + normalizedSliderValue * maxLog);

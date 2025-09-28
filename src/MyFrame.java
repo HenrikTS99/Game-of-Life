@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class MyFrame {
 
-    private JFrame frame;
+    private final JFrame frame;
 
     public MyFrame(MyPanel panel, TopPanel topPanel){
         this.frame = new JFrame();

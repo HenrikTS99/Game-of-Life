@@ -11,9 +11,7 @@ public class Game {
         this.board = new Board();
         myPanel = new MyPanel(board);
 
-        timer = new Timer(delay, e -> {
-            nextFrame();
-        });
+        timer = new Timer(delay, _ -> nextFrame());
         topPanel = new TopPanel(this);
     }
 
