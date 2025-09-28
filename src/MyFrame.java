@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class MyFrame {
@@ -21,8 +20,5 @@ public class MyFrame {
         this.frame.setLocationRelativeTo(null); // Center
 
         this.frame.setVisible(true);
-
     }
-
-
 }

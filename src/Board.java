@@ -3,9 +3,10 @@ import java.util.Random;
 
 public class Board {
 
-    private boolean [][] grid = new boolean[500][1000];
+    private boolean [][] grid = new boolean[250][500];
     private final int boardHeight = grid.length;
     private final int boardLength = grid[0].length;
+    private int updateCount = 0;
 
     public Board() {
         resetBoard();
@@ -16,15 +17,20 @@ public class Board {
        for (boolean[] row : grid) {
            Arrays.fill(row, false);
        }
+       updateCount = 0;
     }
 
     public void randomizeBoard() {
+        Random random = new Random();
         for (int row = 0; row < boardHeight; row++) {
             for (int col = 0; col < boardLength; col++) {
-                Random random = new Random();
                 grid[row][col] = random.nextBoolean();
             }
         }
+    }
+
+    public void setCell(int x, int y, Boolean bool) {
+        grid[y][x] = bool;
     }
 
     public void updateBoard() {
@@ -44,6 +50,7 @@ public class Board {
             }
         }
         grid = newGrid;
+        updateCount++;
     }
 
     // Creates a deep copy of a 2D boolean array
@@ -56,7 +63,8 @@ public class Board {
         return newArray;
     }
 
-    public boolean[][] getGrid() { return this.grid; }
+    public boolean[][] getGrid() { return grid; }
+    public int getCount() { return updateCount; }
 
     public int getBoardHeight() { return this.boardHeight; }
     public int getBoardLength() { return this.boardLength; }

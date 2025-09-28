@@ -14,12 +14,11 @@ public class Game {
         timer = new Timer(delay, e -> {
             nextFrame();
         });
-
         topPanel = new TopPanel(this);
     }
 
     public void run() {
-        MyFrame myFrame = new MyFrame(myPanel, topPanel);
+        new MyFrame(myPanel, topPanel);
         timer.start();
     }
 
@@ -30,6 +29,7 @@ public class Game {
 
     public void nextFrame() {
         board.updateBoard();
+        topPanel.updateCountLabel(board.getCount());
         myPanel.repaint();
     }
 

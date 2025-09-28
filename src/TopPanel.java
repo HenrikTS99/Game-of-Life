@@ -11,6 +11,7 @@ public class TopPanel extends JPanel implements ActionListener {
     private final JButton randomizeButton;
     private final Game game;
     private final JLabel delayLabel = new JLabel();
+    private final JLabel countLabel = new JLabel("Count: 0");
 
     public TopPanel(Game game) {
         this.game = game;
@@ -21,7 +22,7 @@ public class TopPanel extends JPanel implements ActionListener {
         createDelaySlider(game.getDelay());
         clearButton = createButton("Clear");
         randomizeButton = createButton("Randomize");
-
+        this.add(countLabel);
     }
 
     private JButton createButton(String name) {
@@ -31,28 +32,33 @@ public class TopPanel extends JPanel implements ActionListener {
         return button;
     }
 
-     private void createDelaySlider(int currentDelay) {
-         double minLog = Math.log(1); // min delay
-         double maxLog = Math.log(1001); // max delay
+    // Slider for changing simulation speed logarithmically
+    private void createDelaySlider(int currentDelay) {
+        double minLog = Math.log(1); // min delay
+        double maxLog = Math.log(1001); // max delay
 
-         double normalizedStartValue = (Math.log(currentDelay) - minLog) / (maxLog - minLog); // normalize to 0-1
-         // Map to slider range 1–100
-         int sliderStartValue = (int) Math.round(normalizedStartValue * 100);
-         JSlider delaySlider = new JSlider(1, 100, sliderStartValue);
+        double normalizedStartValue = (Math.log(currentDelay) - minLog) / (maxLog - minLog); // normalize to 0-1
+        // Map to slider range 1–100
+        int sliderStartValue = (int) Math.round(normalizedStartValue * 100);
+        JSlider delaySlider = new JSlider(1, 100, sliderStartValue);
 
-         delaySlider.addChangeListener(e -> {
-             int sliderValue = delaySlider.getValue();
-             double normalizedSliderValue = (double) sliderValue / 100.00; // normalize to 0-1
-             int logValue = (int) Math.exp(minLog + normalizedSliderValue * maxLog);
-             game.setDelay(logValue);
-             delayLabel.setText("Delay: " + logValue + " ms");
-         });
-         // Add text labels and slider
-         this.add(new JLabel("Speed:"));
-         this.add(delaySlider);
-         delayLabel.setText("Delay: " + currentDelay + " ms");
-         this.add(delayLabel);
-     }
+        delaySlider.addChangeListener(e -> {
+            int sliderValue = delaySlider.getValue();
+            double normalizedSliderValue = (double) sliderValue / 100.00; // normalize to 0-1
+            int logValue = (int) Math.exp(minLog + normalizedSliderValue * maxLog);
+            game.setDelay(logValue);
+            delayLabel.setText("Delay: " + logValue + " ms");
+        });
+        // Add text labels and slider
+        this.add(new JLabel("Speed:"));
+        this.add(delaySlider);
+        delayLabel.setText("Delay: " + currentDelay + " ms");
+        this.add(delayLabel);
+    }
+
+    public void updateCountLabel(int count) {
+        countLabel.setText("Count: " + count);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
