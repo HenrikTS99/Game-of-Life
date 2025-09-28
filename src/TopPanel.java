@@ -23,17 +23,26 @@ public class TopPanel extends JPanel implements ActionListener {
      }
 
      private void createDelaySlider(int currentDelay) {
-         JSlider delaySlider = new JSlider(1, 100, currentDelay);
+         double minLog = Math.log(1);
+         double maxLog = Math.log(1001);
+
+         // Map currentDelay to 0–1 logarithmic scale
+         double normalizedStartValue = (Math.log(currentDelay) - minLog) / (maxLog - minLog);
+         // Map to slider range 1–100
+         int sliderStartValue = (int) Math.round(normalizedStartValue * 100);
+
+         JSlider delaySlider = new JSlider(1, 100, sliderStartValue);
          delaySlider.addChangeListener(e -> {
-             int newDelay = delaySlider.getValue();
-             game.setDelay(newDelay);
-             delayLabel.setText("Delay: " + newDelay + " ms");
+             int sliderValue = delaySlider.getValue();
+             double normalizedSliderValue = (double) sliderValue / 100.00; // normalize to 0-1
+             int logValue = (int) Math.exp(minLog + normalizedSliderValue * maxLog);
+             game.setDelay(logValue);
+             delayLabel.setText("Delay: " + logValue + " ms");
          });
          this.add(new JLabel("Speed:"));
          this.add(delaySlider);
          delayLabel.setText("Delay: " + currentDelay + " ms");
          this.add(delayLabel);
-
      }
 
     @Override
