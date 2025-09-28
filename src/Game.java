@@ -1,23 +1,30 @@
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 
 public class Game {
+    private final Board board;
+    private final MyPanel myPanel;
+    private final TopPanel topPanel;
+    private final Timer timer;
+    private int delay = 10;
 
-    Board board = new Board();
+    public Game() {
+        this.board = new Board();
+        myPanel = new MyPanel(board);
+
+        timer = new Timer(delay, e -> {
+            board.updateBoard();
+            myPanel.repaint();
+        });
+
+        topPanel = new TopPanel(this);
+    }
 
     public void run() {
-
-        MyPanel myPanel = new MyPanel(board);
-        MyFrame myFrame = new MyFrame(myPanel);
-
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                board.updateBoard();
-                myPanel.repaint();
-            }
-        };
-        timer.scheduleAtFixedRate(task, 2000, 1);
+        MyFrame myFrame = new MyFrame(myPanel, topPanel);
+        timer.start();
     }
+
+    public void pause() { timer.stop(); }
+    public void resume() { timer.start(); }
+    public boolean isRunning() { return timer.isRunning(); }
 }
