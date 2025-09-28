@@ -5,45 +5,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TopPanel extends JPanel implements ActionListener {
-    private JButton pauseButton;
-    private JButton nextFrameButton;
-    private JButton clearButton;
-    private JButton randomizeButton;
+    private final JButton pauseButton;
+    private final JButton nextFrameButton;
+    private final JButton clearButton;
+    private final JButton randomizeButton;
     private final Game game;
-    private JLabel delayLabel = new JLabel();
+    private final JLabel delayLabel = new JLabel();
 
     public TopPanel(Game game) {
         this.game = game;
         // Create and add buttons and sliders
-        createPauseButton();
-        createNextFrameButton();
+        nextFrameButton = createButton("Next Frame");
+        pauseButton = createButton("Pause");
+        nextFrameButton.setVisible(false);
         createDelaySlider(game.getDelay());
-        createClearButton();
-        createRandomizeButton();
+        clearButton = createButton("Clear");
+        randomizeButton = createButton("Randomize");
 
     }
-     private void createPauseButton() {
-         pauseButton = new JButton("Pause");
-         pauseButton.addActionListener(this);
-         this.add(pauseButton);
-     }
 
-     private void createClearButton() {
-         clearButton = new JButton("Clear");
-         clearButton.addActionListener(this);
-         this.add(clearButton);
-     }
-     private void createRandomizeButton() {
-         randomizeButton = new JButton("Randomize");
-         randomizeButton.addActionListener(this);
-         this.add(randomizeButton);
-     }
-     private void createNextFrameButton() {
-        nextFrameButton = new JButton("Next Frame");
-        nextFrameButton.addActionListener(this);
-        nextFrameButton.setVisible(false);
-        this.add(nextFrameButton);
-     }
+    private JButton createButton(String name) {
+        JButton button = new JButton(name);
+        button.addActionListener(this);
+        this.add(button);
+        return button;
+    }
 
      private void createDelaySlider(int currentDelay) {
          double minLog = Math.log(1); // min delay
