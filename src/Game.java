@@ -5,15 +5,14 @@ public class Game {
     private final MyPanel myPanel;
     private final TopPanel topPanel;
     private final Timer timer;
-    private int delay = 10;
+    private int delay = 100;
 
     public Game() {
         this.board = new Board();
         myPanel = new MyPanel(board);
 
         timer = new Timer(delay, e -> {
-            board.updateBoard();
-            myPanel.repaint();
+            nextFrame();
         });
 
         topPanel = new TopPanel(this);
@@ -27,6 +26,21 @@ public class Game {
     public void setDelay(int newDelay) {
         this.delay = newDelay;
         timer.setDelay(newDelay);
+    }
+
+    public void nextFrame() {
+        board.updateBoard();
+        myPanel.repaint();
+    }
+
+    public void clearBoard() {
+        board.resetBoard();
+        myPanel.repaint();
+    }
+
+    public void randomizeBoard() {
+        board.randomizeBoard();
+        myPanel.repaint();
     }
 
     public void pause() { timer.stop(); }

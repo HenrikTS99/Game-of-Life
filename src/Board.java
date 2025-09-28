@@ -12,7 +12,7 @@ public class Board {
         randomizeBoard();
     }
 
-    private void resetBoard() {
+    public void resetBoard() {
        for (boolean[] row : grid) {
            Arrays.fill(row, false);
        }
